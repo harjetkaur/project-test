@@ -1,73 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Calculator</title>
-	<style>
-		/* CSS styles for the calculator */
-		table {
-			border-collapse: collapse;
-		}
-		th, td {
-			padding: 10px;
-			text-align: center;
-			border: 1px solid black;
-		}
-		input {
-			width: 100%;
-			padding: 10px;
-		}
-	</style>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<script src="script.js"></script>
+	<title>Document</title>
 </head>
 <body>
-	<table>
-		<tr>
-			<th colspan="4">Calculator</th>
-		</tr>
-		<tr>
-			<td colspan="4"><input type="text" id="result" readonly></td>
-		</tr>
-		<tr>
-			<td><button onclick="addToResult(7)">7</button></td>
-			<td><button onclick="addToResult(8)">8</button></td>
-			<td><button onclick="addToResult(9)">9</button></td>
-			<td><button onclick="addToResult('/')">/</button></td>
-		</tr>
-		<tr>
-			<td><button onclick="addToResult(4)">4</button></td>
-			<td><button onclick="addToResult(5)">5</button></td>
-			<td><button onclick="addToResult(6)">6</button></td>
-			<td><button onclick="addToResult('*')">*</button></td>
-		</tr>
-		<tr>
-			<td><button onclick="addToResult(1)">1</button></td>
-			<td><button onclick="addToResult(2)">2</button></td>
-			<td><button onclick="addToResult(3)">3</button></td>
-			<td><button onclick="addToResult('-')">-</button></td>
-		</tr>
-		<tr>
-			<td><button onclick="addToResult(0)">0</button></td>
-			<td><button onclick="addToResult('.')">.</button></td>
-			<td><button onclick="calculate()">=</button></td>
-			<td><button onclick="addToResult('+')">+</button></td>
-		</tr>
-		<tr>
-			<td><button onclick="clearResult()">C</button></td>
-		</tr>
-	</table>
-	<script>
-		// JavaScript functions for the calculator
-		function addToResult(value) {
-			document.getElementById('result').value += value;
-		}
+	<form id="card-generator">
+		<label for="bin">Enter the bin (or leave blank for a random bin):</label>
+		<input type="text" name="bin" id="bin"><br><br>
+		<label for="month">Enter the month (or leave blank for a random month):</label>
+		<input type="text" name="month" id="month"><br><br>
+		<label for="year">Enter the year (or leave blank for a random year):</label>
+		<input type="text" name="year" id="year"><br><br>
+		<label for="cvv">Enter the CVV (or leave blank for a random CVV):</label>
+		<input type="text" name="cvv" id="cvv"><br><br>
+		<label for="number_of_strings">How many card numbers would you like to generate?</label>
+		<input type="text" name="number_of_strings" id="number_of_strings"><br><br>
+		<input type="submit" value="Generate">
+	</form>
 
-		function clearResult() {
-			document.getElementById('result').value = '';
-		}
-
-		function calculate() {
-			var result = eval(document.getElementById('result').value);
-			document.getElementById('result').value = result;
-		}
-	</script>
+	<textarea id="generated-cards" rows="10" cols="50"></textarea>
 </body>
 </html>
