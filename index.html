@@ -9,6 +9,20 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <form id="card-generator">
+		<label for="bin">Enter the bin (or leave blank for a random bin):</label>
+		<input type="text" name="bin" id="bin"><br><br>
+		<label for="month">Enter the month (or leave blank for a random month):</label>
+		<input type="text" name="month" id="month"><br><br>
+		<label for="year">Enter the year (or leave blank for a random year):</label>
+		<input type="text" name="year" id="year"><br><br>
+		<label for="cvv">Enter the CVV (or leave blank for a random CVV):</label>
+		<input type="text" name="cvv" id="cvv"><br><br>
+		<label for="number_of_strings">How many card numbers would you like to generate?</label>
+		<input type="text" name="number_of_strings" id="number_of_strings"><br><br>
+		<input type="submit" value="Generate">
+	</form>
+
+	<textarea id="generated-cards" rows="10" cols="50"></textarea>
 </body>
 </html>
