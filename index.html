@@ -1,109 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Calculator</title>
-	<style>
-		/* CSS styles for the calculator */
-body {
-  background-color: #f2f2f2;
-  font-family: Arial, sans-serif;
-}
+<form id="card-generator">
+		<label for="bin">Enter the bin (or leave blank for a random bin):</label>
+		<input type="text" name="bin" id="bin"><br><br>
+		<label for="month">Enter the month (or leave blank for a random month):</label>
+		<input type="text" name="month" id="month"><br><br>
+		<label for="year">Enter the year (or leave blank for a random year):</label>
+		<input type="text" name="year" id="year"><br><br>
+		<label for="cvv">Enter the CVV (or leave blank for a random CVV):</label>
+		<input type="text" name="cvv" id="cvv"><br><br>
+		<label for="number_of_strings">How many card numbers would you like to generate?</label>
+		<input type="text" name="number_of_strings" id="number_of_strings"><br><br>
+		<input type="submit" value="Generate">
+	</form>
 
-table {
-  background-color: #fff;
-  border-collapse: collapse;
-  border-radius: 5px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
-  margin-top: 50px;
-  width: 300px;
-}
-
-th, td {
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ccc;
-}
-
-input {
-  background-color: #eee;
-  border: none;
-  border-radius: 5px;
-  color: #333;
-  font-size: 20px;
-  padding: 10px;
-  text-align: right;
-  width: 100%;
-}
-
-button {
-  background-color: #f2f2f2;
-  border: none;
-  border-radius: 5px;
-  color: #333;
-  font-size: 20px;
-  padding: 10px;
-  transition: background-color 0.3s ease;
-  width: 100%;
-}
-
-button:hover {
-  background-color: #ccc;
-  color: #fff;
-}
-
-	</style>
-</head>
-<body>
-	<table>
-		<tr>
-			<th colspan="4">Calculator</th>
-		</tr>
-		<tr>
-			<td colspan="4"><input type="text" id="result" readonly></td>
-		</tr>
-		<tr>
-			<td><button onclick="addToResult(7)">7</button></td>
-			<td><button onclick="addToResult(8)">8</button></td>
-			<td><button onclick="addToResult(9)">9</button></td>
-			<td><button onclick="addToResult('/')">/</button></td>
-		</tr>
-		<tr>
-			<td><button onclick="addToResult(4)">4</button></td>
-			<td><button onclick="addToResult(5)">5</button></td>
-			<td><button onclick="addToResult(6)">6</button></td>
-			<td><button onclick="addToResult('*')">*</button></td>
-		</tr>
-		<tr>
-			<td><button onclick="addToResult(1)">1</button></td>
-			<td><button onclick="addToResult(2)">2</button></td>
-			<td><button onclick="addToResult(3)">3</button></td>
-			<td><button onclick="addToResult('-')">-</button></td>
-		</tr>
-		<tr>
-			<td><button onclick="addToResult(0)">0</button></td>
-			<td><button onclick="addToResult('.')">.</button></td>
-			<td><button onclick="calculate()">=</button></td>
-			<td><button onclick="addToResult('+')">+</button></td>
-		</tr>
-		<tr>
-			<td><button onclick="clearResult()">C</button></td>
-		</tr>
-	</table>
-	<script>
-		// JavaScript functions for the calculator
-		function addToResult(value) {
-			document.getElementById('result').value += value;
-		}
-
-		function clearResult() {
-			document.getElementById('result').value = '';
-		}
-
-		function calculate() {
-			var result = eval(document.getElementById('result').value);
-			document.getElementById('result').value = result;
-		}
-	</script>
-</body>
-</html>
+	<textarea id="generated-cards" rows="10" cols="50"></textarea>
