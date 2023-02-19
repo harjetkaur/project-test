@@ -49,7 +49,7 @@ form.addEventListener('submit', function(e) {
   const cvv = form.elements['cvv'].value;
   const number_of_strings = parseInt(form.elements['number_of_strings'].value) || 10;
   const generatedStrings = [];
-  for (let i = 0; i < number_of_strings; i++) {
+  for (let i = 1; i < number_of_strings; i++) {
       generatedStrings.push(generate_random_string(bin, month, year, cvv));
   }
   const generatedCardsTextarea = document.getElementById('generated-cards');
