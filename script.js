@@ -1,56 +1,58 @@
-const form = document.getElementById("card-generator");
-const generatedCards = document.getElementById("generated-cards");
-
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  
-  const bin = form.bin.value || "";
-  const month = form.month.value || "";
-  const year = form.year.value || "";
-  const cvv = form.cvv.value || "";
-  const numberOfStrings = Number(form.number_of_strings.value);
-  
-  const generatedStrings = [];
-  for (let i = 0; i < numberOfStrings; i++) {
-    generatedStrings.push(generateRandomString(bin, month, year, cvv));
+function luhn_checksum(card_number) {
+  function digits_of(n) {
+      return Array.from(String(n), Number);
   }
-  
-  generatedCards.value += generatedStrings.join("\n") + "\n";
+  let digits = digits_of(card_number);
+  let odd_digits = digits.filter((_, i) => i % 2 === 0).reverse();
+  let even_digits = digits.filter((_, i) => i % 2 !== 0).reverse();
+  let checksum = 0;
+  checksum += odd_digits.reduce((acc, val) => acc + val, 0);
+  for (let d of even_digits) {
+      checksum += digits_of(d * 2).reduce((acc, val) => acc + val, 0);
+  }
+  return checksum % 10;
+}
+
+function calculate_luhn(partial_card_number) {
+  let check_digit = luhn_checksum(parseInt(partial_card_number) * 10);
+  return check_digit === 0 ? check_digit : 10 - check_digit;
+}
+
+function generate_random_string(bin = '', month = '', year = '', cvv = '') {
+  const bin_length = 16;
+  if (bin.length < bin_length) {
+      bin += Math.floor(Math.random() * 10);
+  }
+  let check_digit = calculate_luhn(bin);
+  bin += check_digit;
+  let separator_1 = '|';
+  if (!month) {
+      month = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
+  }
+  let separator_2 = '|';
+  if (!year) {
+      year = String(Math.floor(Math.random() * 9) + 2023);
+  }
+  let separator_3 = '|';
+  if (!cvv) {
+      cvv = String(Math.floor(Math.random() * 1000)).padStart(3, '0');
+  }
+  return bin + separator_1 + month + separator_2 + year + separator_3 + cvv;
+}
+
+const form = document.getElementById('card-generator');
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const bin = form.elements['bin'].value;
+  const month = form.elements['month'].value;
+  const year = form.elements['year'].value;
+  const cvv = form.elements['cvv'].value;
+  const number_of_strings = parseInt(form.elements['number_of_strings'].value) || 10;
+  const generatedStrings = [];
+  for (let i = 0; i < number_of_strings; i++) {
+      generatedStrings.push(generate_random_string(bin, month, year, cvv));
+  }
+  const generatedCardsTextarea = document.getElementById('generated-cards');
+  generatedCardsTextarea.value = generatedStrings.join('\n');
 });
 
-function generateRandomString(bin = "", month = "", year = "", cvv = "") {
-  const binLength = 16;
-  if (bin.length < binLength) {
-    for (let i = bin.length; i < binLength; i++) {
-      bin += String(Math.floor(Math.random() * 10));
-    }
-  }
-  const checkDigit = calculateLuhn(bin);
-  bin += String(checkDigit);
-  const separator1 = "|";
-  if (!month) {
-    month = String(Math.floor(Math.random() * 12) + 1).padStart(2, "0");
-  }
-  const separator2 = "|";
-  if (!year) {
-    year = String(Math.floor(Math.random() * 9) + 2023);
-  }
-  const separator3 = "|";
-  if (!cvv) {
-    cvv = String(Math.floor(Math.random() * 1000)).padStart(3, "0");
-  }
-  return bin + separator1 + month + separator2 + year + separator3 + cvv;
-}
-
-function calculateLuhn(partialCardNumber) {
-  const digitsOf = (n) => [...String(n)].map(Number);
-  const digits = digitsOf(partialCardNumber);
-  const oddDigits = digits.slice(-1, -digits.length - 1, -2);
-  const evenDigits = digits.slice(-2, -digits.length - 1, -2);
-  let checksum = 0;
-  checksum += oddDigits.reduce((sum, digit) => sum + digit, 0);
-  for (const d of evenDigits) {
-    checksum += digitsOf(d * 2).reduce((sum, digit) => sum + digit, 0);
-  }
-  return checksum % 10 === 0 ? 0 : 10 - (checksum % 10);
-}
